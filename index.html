@@ -3,475 +3,575 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b0b0c" />
+  <meta name="theme-color" content="#0B0B10" />
   <title>SOPHOTO — Φωτογραφία από τη Σοφία</title>
-  <meta name="description" content="SOPHOTO — Φωτογραφία από τη Σοφία. Πορτρέτα, ζωντανές στιγμές και κίνηση. Film & DSLR." />
+  <meta name="description" content="SOPHOTO — Φωτογραφία από τη Σοφία. Πορτρέτα, live στιγμές και κίνηση. Film & DSLR." />
 
-  <!-- Open Graph -->
   <meta property="og:title" content="SOPHOTO — Φωτογραφία από τη Σοφία" />
-  <meta property="og:description" content="Πορτρέτα, ζωντανές στιγμές και κίνηση. Film & DSLR." />
+  <meta property="og:description" content="Πορτρέτα, live στιγμές και κίνηση. Film & DSLR." />
   <meta property="og:type" content="website" />
 
   <style>
     :root{
-      --bg:#0b0b0c;
-      --fg:#f4f4f5;
-      --muted:#a1a1aa;
-      --card:#111114;
-      --card2:#15151a;
+      --bg:#0B0B10;
+      --fg:#F5F7FF;
+      --muted:rgba(245,247,255,.72);
       --line:rgba(255,255,255,.10);
-      --accent:#e6e6e6;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.08);
       --max:1040px;
-      --r:18px;
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --r:22px;
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
+
+      /* Vibrant accents */
+      --a1:#7C3AED; /* violet */
+      --a2:#06B6D4; /* cyan */
+      --a3:#F97316; /* orange */
+      --a4:#22C55E; /* green */
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
+
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: radial-gradient(1200px 600px at 20% 0%, rgba(255,255,255,.06), transparent 60%),
-                  radial-gradient(900px 520px at 90% 20%, rgba(255,255,255,.05), transparent 55%),
-                  var(--bg);
       color:var(--fg);
+      background:
+        radial-gradient(900px 550px at 12% 0%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(900px 600px at 88% 10%, rgba(6,182,212,.18), transparent 58%),
+        radial-gradient(900px 600px at 70% 92%, rgba(249,115,22,.12), transparent 60%),
+        var(--bg);
       line-height:1.45;
     }
-    a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 70px}
+
+    a{ color:inherit; text-decoration:none }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:34px 18px 80px }
 
     header{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:10px 0 26px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:10px 0 26px;
     }
-    .brand{display:flex; flex-direction:column; gap:2px;}
-    .brand b{letter-spacing:.18em; font-size:13px;}
-    .brand small{color:var(--muted); font-size:12px}
+
+    .brand{ display:flex; flex-direction:column; gap:4px }
+    .brand b{
+      letter-spacing:.18em;
+      font-size:13px;
+    }
+    .brand small{ color:var(--muted); font-size:12.5px }
 
     .nav{
-      display:flex; gap:14px; flex-wrap:wrap;
-      color:var(--muted); font-size:13px;
-    }
-    .nav a{
-      text-decoration:none;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid transparent
-    }
-    .nav a:hover{ border-color:var(--line); color:var(--fg) }
-
-    .hero{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border-radius: calc(var(--r) + 8px);
-      padding: 28px 22px;
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.4fr .6fr;
-      gap:22px;
-      align-items:end;
-    }
-
-    h1{
-      margin:0 0 10px;
-      font-size: clamp(30px, 5vw, 46px);
-      letter-spacing:-.02em;
-      line-height:1.08;
-    }
-
-    .lead{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-size:15.5px;
-      max-width:56ch;
-    }
-
-    .chips{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 18px}
-
-    .chip{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
       color:var(--muted);
       font-size:13px;
     }
+    .nav a{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+    }
+    .nav a:hover{
+      border-color:var(--line);
+      color:var(--fg);
+      background:rgba(255,255,255,.04);
+    }
 
-    .cta{display:flex; gap:10px; flex-wrap:wrap;}
+    /* HERO */
+    .hero{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius: calc(var(--r) + 8px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      padding: 34px 26px;
+    }
 
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-120px -120px auto auto;
+      width:420px; height:420px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(124,58,237,.40), transparent 60%),
+        radial-gradient(circle at 70% 60%, rgba(6,182,212,.28), transparent 60%),
+        radial-gradient(circle at 50% 80%, rgba(249,115,22,.18), transparent 62%);
+      filter: blur(6px);
+      transform: rotate(18deg);
+      pointer-events:none;
+      opacity:.9;
+    }
+
+    .hero-inner{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:22px;
+      align-items:end;
+      position:relative;
+      z-index:1;
+    }
+
+    h1{
+      margin:0 0 12px;
+      font-size: clamp(34px, 5vw, 56px);
+      letter-spacing:-.03em;
+      line-height:1.04;
+    }
+
+    .lead{
+      margin:0 0 20px;
+      color:var(--muted);
+      font-size: 16px;
+      max-width: 62ch;
+    }
+
+    .pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin: 0 0 22px;
+    }
+    .pill{
+      font-size:13px;
+      color: rgba(245,247,255,.78);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      padding: 8px 11px;
+      border-radius:999px;
+      backdrop-filter: blur(6px);
+    }
+    .pill.v1{ border-color: rgba(124,58,237,.40) }
+    .pill.v2{ border-color: rgba(6,182,212,.35) }
+    .pill.v3{ border-color: rgba(249,115,22,.32) }
+    .pill.v4{ border-color: rgba(34,197,94,.28) }
+
+    .cta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:10px;
-      padding:11px 14px;
-      border-radius:12px;
+      padding: 12px 14px;
+      border-radius: 14px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.06);
-      text-decoration:none;
-      font-weight:600;
-      font-size:14px;
+      font-weight: 650;
+      font-size: 14px;
     }
-
-    .btn:hover{background: rgba(255,255,255,.10)}
+    .btn:hover{ background: rgba(255,255,255,.10) }
 
     .btn.primary{
-      background: rgba(255,255,255,.92);
-      color:#0b0b0c;
       border-color: transparent;
+      color:#0B0B10;
+      background: linear-gradient(90deg, rgba(124,58,237,1), rgba(6,182,212,1));
+    }
+    .btn.primary:hover{
+      filter: brightness(1.05);
     }
 
-    .btn.primary:hover{background: rgba(255,255,255,.98)}
-
-    .note{
-      color:var(--muted);
-      font-size:12.5px;
-      margin:0;
-      border-left:2px solid rgba(255,255,255,.22);
-      padding-left:10px;
+    .side-note{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      border-radius: var(--r);
+      padding: 14px 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.5;
     }
+    .side-note b{ color: rgba(245,247,255,.90) }
 
-    section{margin-top:30px}
+    /* SECTIONS */
+    section{ margin-top: 46px }
 
     .section-head{
       display:flex;
       align-items:baseline;
       justify-content:space-between;
-      gap:12px;
-      margin:0 0 12px;
+      gap:14px;
+      margin: 0 0 16px;
     }
-
     .section-head h2{
       margin:0;
-      font-size:16px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
+      font-size: 14px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(245,247,255,.88);
     }
-
     .section-head p{
       margin:0;
-      color:var(--muted);
-      font-size:13px;
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .grid{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
-      gap:12px;
+      gap:14px;
     }
 
     .card{
       border:1px solid var(--line);
       border-radius: var(--r);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      background: var(--card);
       overflow:hidden;
       position:relative;
+      min-height: 150px;
     }
 
     .card .inner{
-      padding:14px;
+      padding: 18px 18px 16px;
       display:flex;
       flex-direction:column;
-      gap:8px;
+      gap:10px;
+      position:relative;
+      z-index:1;
     }
 
-    .kicker{
+    .meta{
       display:flex;
       justify-content:space-between;
-      color:var(--muted);
-      font-size:12px;
+      align-items:center;
+      gap:10px;
+      color: var(--muted);
+      font-size: 12.5px;
     }
-
-    .title{font-size:15px; font-weight:700;}
-    .desc{color:var(--muted); font-size:13px; margin:0}
 
     .badge{
-      font-size:11px;
-      padding:5px 9px;
-      border-radius:999px;
-      border:1px solid var(--line);
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.14);
+      color: rgba(245,247,255,.78);
+      white-space:nowrap;
     }
 
-    .span-4{grid-column: span 4;}
-    .span-6{grid-column: span 6;}
-    .span-12{grid-column: span 12;}
+    .title{
+      font-size: 16px;
+      font-weight: 750;
+      letter-spacing:-.01em;
+      margin:0;
+    }
+    .desc{
+      margin:0;
+      color: var(--muted);
+      font-size: 13.5px;
+      max-width: 62ch;
+    }
+
+    .card:after{
+      content:"";
+      position:absolute; inset:auto 0 0 0;
+      height:56%;
+      background:
+        radial-gradient(220px 160px at 10% 90%, rgba(124,58,237,.24), transparent 60%),
+        radial-gradient(240px 170px at 90% 20%, rgba(6,182,212,.20), transparent 62%),
+        linear-gradient(180deg, transparent, rgba(0,0,0,.20));
+      pointer-events:none;
+      opacity:.95;
+    }
+
+    .span-4{ grid-column: span 4; }
+    .span-6{ grid-column: span 6; }
+    .span-12{ grid-column: span 12; }
+
+    /* PROJECT */
+    .project-top{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      margin-bottom: 14px;
+    }
+
+    .mini{
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      background: rgba(255,255,255,.05);
+      padding: 16px 16px;
+    }
+    .mini h3{
+      margin:0 0 8px;
+      font-size: 14px;
+      letter-spacing:-.01em;
+    }
+    .mini p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height:1.55;
+    }
 
     .shots{
       display:grid;
       grid-template-columns: repeat(10, 1fr);
-      gap:10px;
+      gap:12px;
     }
-
     .shot{
       grid-column: span 2;
-      border:1px solid var(--line);
-      border-radius:14px;
-      min-height:140px;
-      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      min-height: 160px;
       position:relative;
+      overflow:hidden;
     }
-
+    .shot:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(140px 100px at 25% 30%, rgba(6,182,212,.22), transparent 62%),
+        radial-gradient(160px 120px at 85% 75%, rgba(124,58,237,.20), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.22));
+      pointer-events:none;
+    }
     .shot .label{
       position:absolute;
       left:10px; top:10px;
-      font-size:11px;
-      background: rgba(0,0,0,.35);
-      padding:5px 8px;
-      border-radius:999px;
+      font-size: 11px;
+      color: rgba(245,247,255,.82);
+      background: rgba(0,0,0,.22);
+      border:1px solid var(--line);
+      padding: 5px 9px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+
+    /* CONTACT */
+    .contact{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
     }
 
     footer{
-      margin-top:34px;
+      margin-top:56px;
       padding-top:18px;
       border-top:1px solid var(--line);
-      color:var(--muted);
-      font-size:12.5px;
+      color: var(--muted);
+      font-size: 12.5px;
       display:flex;
+      gap:12px;
       justify-content:space-between;
       flex-wrap:wrap;
-      gap:12px;
     }
 
-    @media (max-width:860px){
-      .hero-grid{grid-template-columns:1fr}
-      .shots{grid-template-columns: repeat(6, 1fr)}
-      .shot{grid-column: span 3}
+    @media (max-width: 900px){
+      .hero-inner{ grid-template-columns: 1fr; }
+      .project-top{ grid-template-columns: 1fr; }
+      .shots{ grid-template-columns: repeat(6, 1fr); }
+      .shot{ grid-column: span 3; }
     }
-
-    @media (max-width:520px){
-      .nav{display:none}
-      .span-4,.span-6{grid-column: span 12;}
-      .shots{grid-template-columns: repeat(2, 1fr)}
-      .shot{grid-column: span 1}
+    @media (max-width: 520px){
+      .nav{ display:none; }
+      .span-4, .span-6{ grid-column: span 12; }
+      .shots{ grid-template-columns: repeat(2, 1fr); }
+      .shot{ grid-column: span 1; min-height: 150px; }
     }
   </style>
 </head>
 
 <body>
-<div class="wrap">
+  <div class="wrap">
 
-<header>
-  <div class="brand">
-    <b>SOPHOTO</b>
-    <small>Φωτογραφία από τη Σοφία • Film & DSLR</small>
-  </div>
-
-  <nav class="nav">
-    <a href="#portfolio">Portfolio</a>
-    <a href="#project">Project</a>
-    <a href="#work">Υπηρεσίες</a>
-    <a href="#contact">Επικοινωνία</a>
-  </nav>
-</header>
-
-<main>
-
-<section class="hero">
-  <div class="hero-grid">
-
-    <div>
-      <h1>Πορτρέτα, στιγμές και κίνηση.</h1>
-
-      <p class="lead">
-        Το SOPHOTO είναι ο χώρος της Σοφίας για φωτογραφία σε film και DSLR,
-        με έμφαση στους ανθρώπους, την ατμόσφαιρα και τις αυθεντικές στιγμές.
-      </p>
-
-      <div class="chips">
-        <span class="chip">Πορτρέτα</span>
-        <span class="chip">Live μουσική</span>
-        <span class="chip">Χορός</span>
-        <span class="chip">Film + Digital</span>
+    <header>
+      <div class="brand">
+        <b>SOPHOTO</b>
+        <small>Φωτογραφία από τη Σοφία • Film & DSLR</small>
       </div>
 
-      <div class="cta">
-        <a class="btn primary" href="#contact">Στείλε μήνυμα</a>
-        <a class="btn" href="https://www.instagram.com/_sophoto_/" target="_blank">
-          Instagram @_sophoto_
-        </a>
-      </div>
-    </div>
+      <nav class="nav" aria-label="Sections">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#project">Project</a>
+        <a href="#work">Υπηρεσίες</a>
+        <a href="#contact">Επικοινωνία</a>
+      </nav>
+    </header>
 
-    <div>
-      <p class="note">
-        Το portfolio βρίσκεται σε φάση επιμέλειας και θα ενημερωθεί σύντομα.
-      </p>
+    <main>
 
-      <p class="note">
-        Λίγες και δυνατές φωτογραφίες έχουν πάντα μεγαλύτερη αξία.
-      </p>
-    </div>
+      <section class="hero" aria-label="Intro">
+        <div class="hero-inner">
+          <div>
+            <h1>Φωτογραφία με χαρακτήρα.<br>Στιγμές που μένουν.</h1>
 
-  </div>
-</section>
+            <p class="lead">
+              Το SOPHOTO είναι η φωτογραφική υπογραφή της Σοφίας: πορτρέτα, live στιγμές και κίνηση,
+              με αισθητική film και καθαρή ψηφιακή ματιά.
+            </p>
 
-<section id="portfolio">
-  <div class="section-head">
-    <h2>Portfolio</h2>
-    <p>Συλλογές (προσωρινές)</p>
-  </div>
+            <div class="pills" aria-label="Tags">
+              <span class="pill v1">Πορτρέτα</span>
+              <span class="pill v2">Live μουσική</span>
+              <span class="pill v3">Χορός & κίνηση</span>
+              <span class="pill v4">Film + DSLR</span>
+            </div>
 
-  <div class="grid">
+            <div class="cta">
+              <a class="btn primary" href="#contact">Στείλε DM για φωτογράφιση</a>
+              <a class="btn" href="https://www.instagram.com/_sophoto_/" target="_blank" rel="noopener">Instagram @_sophoto_</a>
+            </div>
+          </div>
 
-    <article class="card span-6">
-      <div class="inner">
-        <div class="kicker"><span>Συλλογή</span><span class="badge">Σύντομα</span></div>
-        <div class="title">Πορτρέτα</div>
-        <p class="desc">Φυσικό φως, καθοδήγηση και καθαρό αποτέλεσμα.</p>
-      </div>
-    </article>
+          <div class="side-note">
+            <b>Portfolio σε επιμέλεια.</b><br>
+            Η δομή είναι έτοιμη — μετά το launch θα προστεθεί υλικό και θα “κλειδώσει” το project κείμενο.
+          </div>
+        </div>
+      </section>
 
-    <article class="card span-6">
-      <div class="inner">
-        <div class="kicker"><span>Συλλογή</span><span class="badge">Σύντομα</span></div>
-        <div class="title">Χορός & Κίνηση</div>
-        <p class="desc">Lindy hop και κοινωνικός χορός.</p>
-      </div>
-    </article>
-
-    <article class="card span-4">
-      <div class="inner">
-        <div class="kicker"><span>Συλλογή</span><span class="badge">Σύντομα</span></div>
-        <div class="title">Live Μουσική</div>
-        <p class="desc">Σκηνή, φως και συναίσθημα.</p>
-      </div>
-    </article>
-
-    <article class="card span-4">
-      <div class="inner">
-        <div class="kicker"><span>Συλλογή</span><span class="badge">Σύντομα</span></div>
-        <div class="title">Film Studies</div>
-        <p class="desc">Υφή, κόκκος και απλότητα.</p>
-      </div>
-    </article>
-
-    <article class="card span-4">
-      <div class="inner">
-        <div class="kicker"><span>Συλλογή</span><span class="badge">Σύντομα</span></div>
-        <div class="title">Πόλη & Δρόμος</div>
-        <p class="desc">Μικρές ιστορίες σε πραγματικούς χώρους.</p>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-<section id="project">
-
-  <div class="section-head">
-    <h2>The Period Project</h2>
-    <p>Δομή για φωτογραφικό project</p>
-  </div>
-
-  <div class="grid">
-
-    <div class="card span-12">
-      <div class="inner">
-        <div class="title">Σημείωση Project</div>
-        <p class="desc">
-          Αυτή είναι η δομή για ένα ολοκληρωμένο φωτογραφικό project.
-          Μετά την έκπληξη θα αντικατασταθούν με πραγματικές φωτογραφίες και κείμενο.
-        </p>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="shots">
-    <div class="shot"><span class="label">01</span></div>
-    <div class="shot"><span class="label">02</span></div>
-    <div class="shot"><span class="label">03</span></div>
-    <div class="shot"><span class="label">04</span></div>
-    <div class="shot"><span class="label">05</span></div>
-    <div class="shot"><span class="label">06</span></div>
-    <div class="shot"><span class="label">07</span></div>
-    <div class="shot"><span class="label">08</span></div>
-    <div class="shot"><span class="label">09</span></div>
-    <div class="shot"><span class="label">10</span></div>
-  </div>
-
-</section>
-
-<section id="work">
-
-  <div class="section-head">
-    <h2>Υπηρεσίες</h2>
-    <p>Διαθέσιμες φωτογραφίσεις</p>
-  </div>
-
-  <div class="grid">
-
-    <article class="card span-4">
-      <div class="inner">
-        <div class="title">Πορτρέτα</div>
-        <p class="desc">Ατομικά, ζευγάρια, δημιουργοί.</p>
-      </div>
-    </article>
-
-    <article class="card span-4">
-      <div class="inner">
-        <div class="title">Εκδηλώσεις</div>
-        <p class="desc">Ατμόσφαιρα και αυθεντικές στιγμές.</p>
-      </div>
-    </article>
-
-    <article class="card span-4">
-      <div class="inner">
-        <div class="title">Χορός</div>
-        <p class="desc">Μαθήματα, socials, workshops.</p>
-      </div>
-    </article>
-
-  </div>
-
-</section>
-
-<section id="contact">
-
-  <div class="section-head">
-    <h2>Επικοινωνία</h2>
-    <p>Μέσω Instagram</p>
-  </div>
-
-  <div class="grid">
-
-    <div class="card span-12">
-      <div class="inner">
-        <div class="title">Στείλε μήνυμα στο Instagram</div>
-        <p class="desc">Για διαθεσιμότητα και κρατήσεις.</p>
-
-        <div class="cta">
-          <a class="btn primary" href="https://www.instagram.com/_sophoto_/" target="_blank">
-            Άνοιγμα Instagram
-          </a>
+      <!-- PORTFOLIO (LESS CROWDED) -->
+      <section id="portfolio" aria-label="Portfolio">
+        <div class="section-head">
+          <h2>Portfolio</h2>
+          <p>Συλλογές (coming soon)</p>
         </div>
 
-      </div>
-    </div>
+        <div class="grid">
+          <article class="card span-4">
+            <div class="inner">
+              <div class="meta"><span>Συλλογή</span><span class="badge">Σύντομα</span></div>
+              <p class="title">Πορτρέτα</p>
+              <p class="desc">Φυσικό φως, απλές γραμμές, καθοδήγηση χωρίς ένταση.</p>
+            </div>
+          </article>
 
+          <article class="card span-4">
+            <div class="inner">
+              <div class="meta"><span>Συλλογή</span><span class="badge">Σύντομα</span></div>
+              <p class="title">Live μουσική</p>
+              <p class="desc">Σκηνή, συναίσθημα, παρουσία — χωρίς “φασαρία” στο κάδρο.</p>
+            </div>
+          </article>
+
+          <article class="card span-4">
+            <div class="inner">
+              <div class="meta"><span>Συλλογή</span><span class="badge">Σύντομα</span></div>
+              <p class="title">Χορός & κίνηση</p>
+              <p class="desc">Timing, ενέργεια, σύνδεση. Κίνηση που διαβάζεται.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PROJECT (CLEAN) -->
+      <section id="project" aria-label="Project">
+        <div class="section-head">
+          <h2>The Period Project</h2>
+          <p>10 καρέ + κείμενο (έτοιμο για αντικατάσταση)</p>
+        </div>
+
+        <div class="project-top">
+          <div class="mini">
+            <h3>Στόχος</h3>
+            <p>
+              Αυτό είναι ένα “σκελετό” για ολοκληρωμένο φωτογραφικό project.
+              Μετά την έκπληξη θα μπουν οι 10 φωτογραφίες και θα γραφτεί η τελική δήλωση.
+            </p>
+          </div>
+
+          <div class="mini">
+            <h3>Δομή κειμένου</h3>
+            <p>
+              1–2 προτάσεις τι είναι • 2–4 προτάσεις πρόθεση/αίσθηση • (προαιρετικά) τόπος/χρόνος/μέσο.
+              Χωρίς υπερβολές, χωρίς εξηγήσεις που “σκοτώνουν” τη σειρά.
+            </p>
+          </div>
+        </div>
+
+        <div class="shots" aria-label="10 placeholders">
+          <div class="shot"><span class="label">Καρέ 01</span></div>
+          <div class="shot"><span class="label">Καρέ 02</span></div>
+          <div class="shot"><span class="label">Καρέ 03</span></div>
+          <div class="shot"><span class="label">Καρέ 04</span></div>
+          <div class="shot"><span class="label">Καρέ 05</span></div>
+          <div class="shot"><span class="label">Καρέ 06</span></div>
+          <div class="shot"><span class="label">Καρέ 07</span></div>
+          <div class="shot"><span class="label">Καρέ 08</span></div>
+          <div class="shot"><span class="label">Καρέ 09</span></div>
+          <div class="shot"><span class="label">Καρέ 10</span></div>
+        </div>
+
+        <div style="margin-top:14px" class="mini">
+          <h3>Artist statement (placeholder)</h3>
+          <p>
+            Μια σύντομη σειρά που παρατηρεί ρυθμό, υφή και ατμόσφαιρα σε μια συγκεκριμένη περίοδο.
+            Η προσοχή μένει στις λεπτομέρειες — σε αυτά που συνήθως χάνονται πρώτα.
+            <br><br>
+            <span style="opacity:.9">(Μετά το reveal το γράφετε με δικά της λόγια, 8–12 γραμμές max.)</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- WORK (MINIMAL) -->
+      <section id="work" aria-label="Υπηρεσίες">
+        <div class="section-head">
+          <h2>Υπηρεσίες</h2>
+          <p>Απλά και ξεκάθαρα</p>
+        </div>
+
+        <div class="grid">
+          <article class="card span-6">
+            <div class="inner">
+              <div class="meta"><span>Φωτογράφιση</span><span class="badge">Κατόπιν συνεννόησης</span></div>
+              <p class="title">Πορτρέτα</p>
+              <p class="desc">Άτομα, ζευγάρια, δημιουργοί. Μικρή διάρκεια, καθαρό αποτέλεσμα.</p>
+            </div>
+          </article>
+
+          <article class="card span-6">
+            <div class="inner">
+              <div class="meta"><span>Κάλυψη</span><span class="badge">Κατόπιν συνεννόησης</span></div>
+              <p class="title">Live / Εκδηλώσεις / Χορός</p>
+              <p class="desc">Στιγμές, ενέργεια και ατμόσφαιρα — χωρίς “βαρύ” ύφος.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" aria-label="Επικοινωνία">
+        <div class="section-head">
+          <h2>Επικοινωνία</h2>
+          <p>Μόνο Instagram προς το παρόν</p>
+        </div>
+
+        <div class="mini">
+          <div class="contact">
+            <div>
+              <div style="font-weight:750; font-size:16px; margin-bottom:6px;">Στείλε DM στο Instagram</div>
+              <div style="color:var(--muted); font-size:13.5px;">Για διαθεσιμότητα, ιδέες και λεπτομέρειες.</div>
+            </div>
+
+            <div class="cta">
+              <a class="btn primary" href="https://www.instagram.com/_sophoto_/" target="_blank" rel="noopener">Άνοιγμα Instagram</a>
+              <a class="btn" href="#project">Δες το project</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <span>© <span id="y"></span> SOPHOTO</span>
+        <span><a href="https://www.instagram.com/_sophoto_/" target="_blank" rel="noopener">Instagram @_sophoto_</a></span>
+      </footer>
+
+    </main>
   </div>
 
-</section>
-
-<footer>
-  <span>© <span id="y"></span> SOPHOTO</span>
-  <span>
-    <a href="https://www.instagram.com/_sophoto_/" target="_blank">
-      @_sophoto_
-    </a>
-  </span>
-</footer>
-
-</main>
-</div>
-
-<script>
-  document.getElementById('y').textContent = new Date().getFullYear();
-</script>
-
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
