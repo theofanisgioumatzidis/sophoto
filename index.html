@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <title>SOPHOTO — Photography by Sofia</title>
+  <meta name="description" content="SOPHOTO — Photography by Sofia. Portraits, live moments, and movement. Film & DSLR." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SOPHOTO — Photography by Sofia" />
+  <meta property="og:description" content="Portraits, live moments, and movement. Film & DSLR." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --fg:#f4f4f5;
+      --muted:#a1a1aa;
+      --card:#111114;
+      --card2:#15151a;
+      --line:rgba(255,255,255,.10);
+      --accent:#e6e6e6;
+      --max:1040px;
+      --r:18px;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(255,255,255,.06), transparent 60%),
+                  radial-gradient(900px 520px at 90% 20%, rgba(255,255,255,.05), transparent 55%),
+                  var(--bg);
+      color:var(--fg);
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 70px}
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:10px 0 26px;
+    }
+    .brand{
+      display:flex; flex-direction:column; gap:2px;
+    }
+    .brand b{
+      letter-spacing:.18em; font-size:13px;
+    }
+    .brand small{color:var(--muted); font-size:12px}
+    .nav{
+      display:flex; gap:14px; flex-wrap:wrap;
+      color:var(--muted); font-size:13px;
+    }
+    .nav a{ text-decoration:none; padding:8px 10px; border-radius:999px; border:1px solid transparent }
+    .nav a:hover{ border-color:var(--line); color:var(--fg) }
+
+    .hero{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-radius: calc(var(--r) + 8px);
+      padding: 28px 22px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-40px -120px auto auto;
+      width:360px; height:360px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.10), transparent 60%);
+      filter: blur(0px);
+      pointer-events:none;
+      transform: rotate(18deg);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.4fr .6fr;
+      gap:22px;
+      align-items:end;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(30px, 5vw, 46px);
+      letter-spacing:-.02em;
+      line-height:1.08;
+    }
+    .lead{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size: 15.5px;
+      max-width: 56ch;
+    }
+    .chips{display:flex; gap:8px; flex-wrap:wrap; margin: 0 0 18px}
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .cta{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 6px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+    }
+    .btn:hover{background: rgba(255,255,255,.10)}
+    .btn.primary{
+      background: rgba(255,255,255,.92);
+      color:#0b0b0c;
+      border-color: transparent;
+    }
+    .btn.primary:hover{background: rgba(255,255,255,.98)}
+    .side{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:flex-end;
+    }
+    .note{
+      color:var(--muted);
+      font-size:12.5px;
+      margin:0;
+      border-left:2px solid rgba(255,255,255,.22);
+      padding-left:10px;
+    }
+
+    section{margin-top:30px}
+    .section-head{
+      display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+      margin: 0 0 12px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.88);
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:12px;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      overflow:hidden;
+      min-height: 120px;
+      position:relative;
+    }
+    .card .inner{
+      padding:14px 14px 12px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .kicker{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .title{
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing:-.01em;
+    }
+    .desc{color:var(--muted); font-size: 13px; margin:0}
+    .badge{
+      font-size: 11px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.20);
+      color: rgba(255,255,255,.72);
+      white-space:nowrap;
+    }
+    .pattern{
+      position:absolute; inset:auto 0 0 0;
+      height:46%;
+      background:
+        radial-gradient(220px 120px at 10% 70%, rgba(255,255,255,.10), transparent 60%),
+        radial-gradient(260px 160px at 85% 10%, rgba(255,255,255,.08), transparent 62%),
+        linear-gradient(180deg, transparent, rgba(0,0,0,.25));
+      opacity:.95;
+      pointer-events:none;
+    }
+
+    /* Portfolio cards layout */
+    .span-4{grid-column: span 4;}
+    .span-6{grid-column: span 6;}
+    .span-12{grid-column: span 12;}
+
+    /* Project section */
+    .project{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .project-meta{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .box{
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      background: rgba(255,255,255,.03);
+      padding:14px;
+    }
+    .box h3{margin:0 0 8px; font-size:14px; letter-spacing:-.01em}
+    .box p{margin:0; color:var(--muted); font-size:13px}
+    .shots{
+      display:grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap:10px;
+    }
+    .shot{
+      grid-column: span 2;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      min-height: 140px;
+      position:relative;
+      overflow:hidden;
+    }
+    .shot:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(120px 80px at 25% 30%, rgba(255,255,255,.12), transparent 62%),
+        radial-gradient(140px 90px at 80% 70%, rgba(255,255,255,.09), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.20));
+      pointer-events:none;
+    }
+    .shot .label{
+      position:absolute;
+      left:10px; top:10px;
+      font-size: 11px;
+      color: rgba(255,255,255,.78);
+      background: rgba(0,0,0,.25);
+      border:1px solid var(--line);
+      padding: 5px 8px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+    .shot .hint{
+      position:absolute;
+      left:10px; right:10px; bottom:10px;
+      color: rgba(255,255,255,.72);
+      font-size: 11px;
+      display:flex; justify-content:space-between; gap:8px;
+    }
+
+    footer{
+      margin-top:34px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:12.5px;
+      display:flex; gap:12px; justify-content:space-between; flex-wrap:wrap;
+    }
+
+    @media (max-width: 860px){
+      .hero-grid{grid-template-columns: 1fr}
+      .side{align-items:flex-start}
+      .project-meta{grid-template-columns: 1fr}
+      .shots{grid-template-columns: repeat(6, 1fr)}
+      .shot{grid-column: span 3}
+    }
+    @media (max-width: 520px){
+      .nav{display:none}
+      .span-4,.span-6{grid-column: span 12;}
+      .shots{grid-template-columns: repeat(2, 1fr)}
+      .shot{grid-column: span 1}
+      .shot{min-height: 150px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <b>SOPHOTO</b>
+        <small>Photography by Sofia • Film & DSLR</small>
+      </div>
+      <nav class="nav" aria-label="Sections">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#project">Period Project</a>
+        <a href="#work">Work with me</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-label="Intro">
+        <div class="hero-grid">
+          <div>
+            <h1>Portraits, live moments, and movement.</h1>
+            <p class="lead">
+              SOPHOTO is Sofia’s photography space — shooting on film and DSLR, with a focus on people, atmosphere, and honest frames.
+            </p>
+
+            <div class="chips" aria-label="Tags">
+              <span class="chip">Portraits</span>
+              <span class="chip">Live music</span>
+              <span class="chip">Dance & movement</span>
+              <span class="chip">Film + Digital</span>
+            </div>
+
+            <div class="cta">
+              <a class="btn primary" href="#contact">DM to book</a>
+              <a class="btn" href="https://www.instagram.com/_sophoto_/" target="_blank" rel="noopener">Instagram @_sophoto_</a>
+            </div>
+          </div>
+
+          <div class="side">
+            <p class="note">
+              Portfolio is being curated. This site is ready to be updated with Sofia’s work after launch.
+            </p>
+            <p class="note">
+              Tip: Keep it small and strong — fewer photos, higher impact.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PORTFOLIO PLACEHOLDER CARDS -->
+      <section id="portfolio" aria-label="Portfolio">
+        <div class="section-head">
+          <h2>Portfolio</h2>
+          <p>Coming soon cards (replace with real galleries later)</p>
+        </div>
+
+        <div class="grid">
+          <article class="card span-6">
+            <div class="inner">
+              <div class="kicker"><span>Collection</span><span class="badge">Coming soon</span></div>
+              <div class="title">Portraits</div>
+              <p class="desc">Natural light, calm direction, and a clean edit — film + DSLR.</p>
+            </div>
+            <div class="pattern"></div>
+          </article>
+
+          <article class="card span-6">
+            <div class="inner">
+              <div class="kicker"><span>Collection</span><span class="badge">Coming soon</span></div>
+              <div class="title">Dance & movement</div>
+              <p class="desc">Lindy hop and social dance — energy, connection, and timing.</p>
+            </div>
+            <div class="pattern"></div>
+          </article>
+
+          <article class="card span-4">
+            <div class="inner">
+              <div class="kicker"><span>Collection</span><span class="badge">Coming soon</span></div>
+              <div class="title">Live music</div>
+              <p class="desc">Stage light, emotion, and presence — bands and gigs.</p>
+            </div>
+            <div class="pattern"></div>
+          </article>
+
+          <article class="card span-4">
+            <div class="inner">
+              <div class="kicker"><span>Collection</span><span class="badge">Coming soon</span></div>
+              <div class="title">Film studies</div>
+              <p class="desc">A film-first eye — texture, grain, and restraint.</p>
+            </div>
+            <div class="pattern"></div>
+          </article>
+
+          <article class="card span-4">
+            <div class="inner">
+              <div class="kicker"><span>Collection</span><span class="badge">Coming soon</span></div>
+              <div class="title">Street / city</div>
+              <p class="desc">Small stories in real places — quiet frames, strong composition.</p>
+            </div>
+            <div class="pattern"></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PERIOD PROJECT SECTION -->
+      <section id="project" aria-label="Project">
+        <div class="section-head">
+          <h2>The Period Project</h2>
+          <p>10 frames + text (ready to swap in real photos later)</p>
+        </div>
+
+        <div class="project">
+          <div class="project-meta">
+            <div class="box">
+              <h3>Project note</h3>
+              <p>
+                This is a placeholder layout for a cohesive photo story. After the surprise, we’ll replace the 10 frames
+                with Sofia’s images and write the final text together.
+              </p>
+            </div>
+            <div class="box">
+              <h3>Structure we’ll fill in</h3>
+              <p>
+                Title • 2–4 paragraph statement • 10 frames • captions (optional) • credits / gear (optional).
+              </p>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>Artist statement (placeholder)</h3>
+            <p>
+              A short series exploring rhythm, texture, and the feeling of a place during a specific period of time.
+              The work focuses on atmosphere and detail — the parts that usually disappear first.
+              <br><br>
+              <span style="color:rgba(255,255,255,.70)">
+                (Replace this with Sofia’s words. We can write it like a real project statement, not an “about me”.)
+              </span>
+            </p>
+          </div>
+
+          <div class="shots" aria-label="10 placeholders">
+            <!-- Replace each .shot with an <img> later (same grid still works) -->
+            <div class="shot"><span class="label">Frame 01</span><div class="hint"><span>Placeholder</span><span>Swap later</span></div></div>
+            <div class="shot"><span class="label">Frame 02</span><div class="hint"><span>Placeholder</span><span>Swap later</span></div></div>
+            <div class="shot"><span class="label">Frame 03</span><div class="hint"><span>Placeholder</span><span>Swap later</span></div></div>
+            <div class="shot"><span class="label">Frame 04</span><div class="hint"><span>Placeholder</span><span>Swap later</span></div></div>
+            <div class="shot"><span class="label">Frame 05</span><div class="hint"><span>Placeholder</span><span>Swap later</span></div></div>
+            <div class="shot"><span class="label">Frame 06</span><div class="hint"><span>Placeholder</span><span>Swap later</span></div></div>
+            <div class="shot"><span class="label">Frame 07</span><div class="hint"><span>Placeholder</span><span>Swap later</span></div></div>
+            <div class="shot"><span class="label">Frame 08</span><div class="hint"><span>Placeholder</span><span>Swap later</span></div></div>
+            <div class="shot"><span class="label">Frame 09</span><div class="hint"><span>Placeholder</span><span>Swap later</span></div></div>
+            <div class="shot"><span class="label">Frame 10</span><div class="hint"><span>Placeholder</span><span>Swap later</span></div></div>
+          </div>
+
+          <div class="box">
+            <h3>Captions (optional)</h3>
+            <p>
+              If Sofia wants captions, we’ll keep them minimal: 5–12 words each, or just location/date.
+              Captions should support the sequence, not explain it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORK WITH ME -->
+      <section id="work" aria-label="Work with me">
+        <div class="section-head">
+          <h2>Work with me</h2>
+          <p>Clear offers without overpromising</p>
+        </div>
+
+        <div class="grid">
+          <article class="card span-4">
+            <div class="inner">
+              <div class="kicker"><span>Service</span><span class="badge">Bookable</span></div>
+              <div class="title">Portrait session</div>
+              <p class="desc">Individuals, couples, creators — calm direction, clean frames.</p>
+            </div>
+            <div class="pattern"></div>
+          </article>
+
+          <article class="card span-4">
+            <div class="inner">
+              <div class="kicker"><span>Service</span><span class="badge">Bookable</span></div>
+              <div class="title">Events</div>
+              <p class="desc">Atmosphere + people + moments. Coverage with a storytelling eye.</p>
+            </div>
+            <div class="pattern"></div>
+          </article>
+
+          <article class="card span-4">
+            <div class="inner">
+              <div class="kicker"><span>Service</span><span class="badge">Bookable</span></div>
+              <div class="title">Dance / movement</div>
+              <p class="desc">Classes, socials, workshops — timing, energy, connection.</p>
+            </div>
+            <div class="pattern"></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" aria-label="Contact">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <p>Instagram DM for now</p>
+        </div>
+
+        <div class="grid">
+          <div class="card span-12">
+            <div class="inner">
+              <div class="title">DM on Instagram</div>
+              <p class="desc">For bookings and availability, send a message on Instagram.</p>
+              <div class="cta">
+                <a class="btn primary" href="https://www.instagram.com/_sophoto_/" target="_blank" rel="noopener">Open Instagram</a>
+                <a class="btn" href="#portfolio">View portfolio structure</a>
+              </div>
+              <p class="desc" style="margin-top:8px; font-size:12.5px;">
+                (After the surprise, we can add an email address or a contact form if she wants.)
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <span>© <span id="y"></span> SOPHOTO</span>
+        <span><a href="https://www.instagram.com/_sophoto_/" target="_blank" rel="noopener" style="text-decoration:none">Instagram @_sophoto_</a></span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
