@@ -3,50 +3,62 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="sophoto — Πορτρέτα • Φιλμ • Κίνηση. Επιλεγμένη δουλειά, λίγα λόγια, και τρόποι επικοινωνίας." />
+    <meta
+      name="description"
+      content="sophoto — Πορτρέτα • Φιλμ • Κίνηση. Επιλεγμένη δουλειά, λίγα λόγια, και επικοινωνία."
+    />
     <title>sophoto</title>
 
     <style>
       :root{
-        --bg: #F7F5EF;
-        --bg-2:#F3F1EA;
-        --text:#1A1C1E;
-        --muted:#5D6369;
-        --line: rgba(26,28,30,.12);
-        --card: rgba(255,255,255,.6);
-        --shadow: 0 14px 40px rgba(0,0,0,.08);
-        --accent:#2C654A;         /* muted plant green */
-        --accent-2:#3B7A58;
+        /* Base palette */
+        --bg: #F7F2E7;             /* warm paper */
+        --ink:#161A1D;             /* near-black */
+        --muted:#4F5860;           /* muted text */
+        --line: rgba(22,26,29,.12);
+
+        /* Botanical accents (more color, still tasteful) */
+        --g1:#1F6A4A;              /* deep plant green */
+        --g2:#3E9B6B;              /* fresh green */
+        --g3:#BFE6D0;              /* pale mint */
+        --clay:#C97758;            /* warm clay accent (subtle) */
+
+        --card: rgba(255,255,255,.62);
+        --shadow: 0 18px 48px rgba(0,0,0,.10);
         --radius: 22px;
-        --max: 1100px;
+        --max: 1120px;
       }
 
       *{ box-sizing:border-box; }
       html{ scroll-behavior:smooth; }
       body{
         margin:0;
-        color:var(--text);
-        background: var(--bg);
+        color:var(--ink);
+        background:
+          radial-gradient(900px 520px at 10% 8%, rgba(62,155,107,.20), transparent 62%),
+          radial-gradient(760px 520px at 92% 10%, rgba(201,119,88,.14), transparent 60%),
+          radial-gradient(950px 720px at 50% 110%, rgba(191,230,208,.55), transparent 62%),
+          linear-gradient(180deg, #F7F2E7 0%, #F6F4EC 30%, #F5F7F0 100%);
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
         line-height:1.55;
       }
 
-      /* Subtle grain/noise (pure CSS) */
+      /* Artistic grain/noise (pure CSS) */
       body::before{
         content:"";
         position:fixed;
         inset:0;
         pointer-events:none;
         z-index:-1;
-        opacity:.10;
+        opacity:.14;
         background-image:
-          radial-gradient(circle at 10% 20%, rgba(0,0,0,.10) 0 1px, transparent 1px 100%),
-          radial-gradient(circle at 80% 30%, rgba(0,0,0,.08) 0 1px, transparent 1px 100%),
-          radial-gradient(circle at 30% 80%, rgba(0,0,0,.07) 0 1px, transparent 1px 100%),
-          radial-gradient(circle at 70% 75%, rgba(0,0,0,.06) 0 1px, transparent 1px 100%);
-        background-size: 220px 220px, 260px 260px, 300px 300px, 340px 340px;
+          radial-gradient(circle at 12% 18%, rgba(0,0,0,.10) 0 1px, transparent 1px 100%),
+          radial-gradient(circle at 78% 22%, rgba(0,0,0,.08) 0 1px, transparent 1px 100%),
+          radial-gradient(circle at 26% 78%, rgba(0,0,0,.07) 0 1px, transparent 1px 100%),
+          radial-gradient(circle at 68% 74%, rgba(0,0,0,.06) 0 1px, transparent 1px 100%);
+        background-size: 210px 210px, 260px 260px, 300px 300px, 340px 340px;
         mix-blend-mode:multiply;
-        filter: blur(.25px);
+        filter: blur(.35px);
       }
 
       a{ color:inherit; text-decoration:none; }
@@ -66,8 +78,8 @@
       .nav{
         position:sticky; top:0; z-index:50;
         backdrop-filter: blur(10px);
-        background: color-mix(in srgb, var(--bg) 78%, transparent);
-        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, #ffffff 55%, transparent);
+        border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
       }
       .nav-inner{
         display:flex; align-items:center; justify-content:space-between;
@@ -79,7 +91,7 @@
         letter-spacing:.2px;
       }
       .brand strong{
-        font-weight:650;
+        font-weight:700;
         font-size: 16px;
       }
       .brand span{
@@ -87,7 +99,7 @@
         font-size: 13px;
       }
       .links{
-        display:flex; align-items:center; gap:18px;
+        display:flex; align-items:center; gap:16px;
         flex-wrap:wrap;
         justify-content:flex-end;
       }
@@ -95,86 +107,127 @@
         color:var(--muted);
         font-size:14px;
       }
+
       .links a:focus-visible,
       .btn:focus-visible{
-        outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent);
+        outline: 3px solid color-mix(in srgb, var(--g2) 45%, transparent);
         outline-offset: 3px;
         border-radius: 14px;
       }
+
       .btn{
         display:inline-flex; align-items:center; justify-content:center;
         padding: 10px 14px;
         border-radius: 999px;
-        border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
-        background: color-mix(in srgb, var(--accent) 10%, #fff);
-        color: color-mix(in srgb, var(--accent) 80%, var(--text));
-        font-weight:600;
+        border: 1px solid rgba(22,26,29,.10);
+        background:
+          radial-gradient(120% 140% at 20% 20%, rgba(191,230,208,.9), rgba(191,230,208,0) 55%),
+          linear-gradient(135deg, rgba(31,106,74,.95), rgba(62,155,107,.90));
+        color: #0B120E;
+        font-weight:700;
         font-size:14px;
         text-decoration:none;
-        box-shadow: 0 10px 26px rgba(44,101,74,.10);
+        box-shadow: 0 14px 34px rgba(31,106,74,.22);
       }
-      .btn:hover{ text-decoration:none; background: color-mix(in srgb, var(--accent) 14%, #fff); }
-      .btn.secondary{
-        background: transparent;
-        color: var(--accent);
-        box-shadow:none;
+      .btn:hover{
+        text-decoration:none;
+        filter: saturate(1.05) contrast(1.02);
+        transform: translateY(-1px);
       }
-      .btn.secondary:hover{ background: color-mix(in srgb, var(--accent) 8%, #fff); }
 
       /* Hero */
       header.hero{
-        padding: 64px 0 28px;
+        padding: 72px 0 26px;
       }
       .hero-card{
-        border:1px solid var(--line);
-        background: color-mix(in srgb, #fff 50%, transparent);
+        border:1px solid rgba(22,26,29,.10);
+        background: color-mix(in srgb, #ffffff 58%, transparent);
         border-radius: var(--radius);
         box-shadow: var(--shadow);
-        padding: 34px 28px;
+        padding: 40px 30px;
         position:relative;
         overflow:hidden;
       }
-      /* faint botanical wash */
+
+      /* bold, artistic color wash */
       .hero-card::after{
         content:"";
-        position:absolute; inset:-40px;
+        position:absolute; inset:-60px;
         background:
-          radial-gradient(800px 500px at 12% 10%, rgba(44,101,74,.10), transparent 60%),
-          radial-gradient(700px 450px at 85% 25%, rgba(44,101,74,.08), transparent 60%),
-          radial-gradient(900px 650px at 55% 110%, rgba(44,101,74,.06), transparent 60%);
-        filter: blur(2px);
+          radial-gradient(900px 520px at 12% 10%, rgba(62,155,107,.28), transparent 62%),
+          radial-gradient(820px 520px at 85% 18%, rgba(201,119,88,.18), transparent 60%),
+          radial-gradient(880px 680px at 48% 110%, rgba(191,230,208,.65), transparent 64%);
+        filter: blur(1.5px);
         z-index:0;
       }
+
+      /* subtle “leafy” line art using gradients */
+      .hero-card::before{
+        content:"";
+        position:absolute; inset:0;
+        background:
+          radial-gradient(circle at 18% 72%, rgba(255,255,255,.55) 0 2px, transparent 2px 100%),
+          radial-gradient(circle at 22% 68%, rgba(255,255,255,.35) 0 2px, transparent 2px 100%),
+          radial-gradient(circle at 26% 64%, rgba(255,255,255,.25) 0 2px, transparent 2px 100%);
+        background-size: 220px 220px;
+        opacity:.22;
+        mix-blend-mode: overlay;
+        z-index:0;
+      }
+
       .hero-content{ position:relative; z-index:1; }
 
       h1{
         margin:0 0 10px;
-        font-size: clamp(34px, 5vw, 54px);
-        letter-spacing: .4px;
+        font-size: clamp(36px, 5vw, 58px);
+        letter-spacing: .5px;
       }
       .subline{
-        color:var(--muted);
+        color: color-mix(in srgb, var(--muted) 75%, var(--g1));
         font-size: 15px;
         margin: 0 0 18px;
       }
       .lede{
-        max-width: 62ch;
-        margin: 0 0 22px;
+        max-width: 66ch;
+        margin: 0;
         font-size: 16px;
-        color: color-mix(in srgb, var(--text) 90%, var(--muted));
+        color: color-mix(in srgb, var(--ink) 88%, var(--muted));
       }
-      .cta-row{
-        display:flex; gap:12px; flex-wrap:wrap;
-        margin-top: 8px;
+
+      /* Decorative divider */
+      .divider{
+        height:1px;
+        background: linear-gradient(90deg,
+          transparent,
+          color-mix(in srgb, var(--g2) 35%, transparent),
+          color-mix(in srgb, var(--clay) 22%, transparent),
+          color-mix(in srgb, var(--g3) 55%, transparent),
+          transparent
+        );
+        margin: 22px 0 0;
       }
 
       /* Sections */
-      section{
-        padding: 48px 0;
+      section{ padding: 54px 0; position:relative; }
+
+      /* section color halos */
+      section::before{
+        content:"";
+        position:absolute;
+        inset:-40px 0 auto 0;
+        height: 220px;
+        pointer-events:none;
+        background:
+          radial-gradient(520px 240px at 12% 10%, rgba(62,155,107,.16), transparent 62%),
+          radial-gradient(520px 240px at 90% 20%, rgba(201,119,88,.10), transparent 62%);
+        filter: blur(0.5px);
+        opacity:.7;
       }
+
       .section-head{
         display:flex; align-items:end; justify-content:space-between; gap:16px;
         margin-bottom: 18px;
+        position:relative;
       }
       .section-head h2{
         margin:0;
@@ -190,9 +243,10 @@
 
       /* Work blocks */
       .collection{
-        margin-top: 28px;
+        margin-top: 30px;
         padding-top: 22px;
-        border-top: 1px solid var(--line);
+        border-top: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+        position:relative;
       }
       .collection:first-of-type{
         margin-top: 0;
@@ -202,7 +256,7 @@
       .collection h3{
         margin:0 0 6px;
         font-size: 16px;
-        font-weight: 650;
+        font-weight: 700;
       }
       .collection .hint{
         margin:0 0 14px;
@@ -221,37 +275,57 @@
         border-radius: 18px;
         overflow:hidden;
         position:relative;
-        border: 1px solid rgba(0,0,0,.06);
-        background: var(--bg-2);
-        min-height: 220px;
+        border: 1px solid rgba(22,26,29,.08);
+        background: rgba(255,255,255,.35);
+        min-height: 230px;
+        box-shadow: 0 12px 26px rgba(0,0,0,.06);
       }
+
+      /* colored edge tint for “more artistic” feel */
+      figure.card::before{
+        content:"";
+        position:absolute; inset:0;
+        background:
+          radial-gradient(120% 120% at 20% 10%, rgba(62,155,107,.18), transparent 55%),
+          radial-gradient(120% 120% at 90% 90%, rgba(201,119,88,.12), transparent 55%);
+        opacity:.75;
+        mix-blend-mode: soft-light;
+        z-index:1;
+        pointer-events:none;
+      }
+
       figure.card img{
         width:100%;
         height: 100%;
         display:block;
         object-fit: cover;
         transform: scale(1.02);
-        transition: transform 240ms ease;
-        filter: saturate(.95) contrast(1.02);
+        transition: transform 240ms ease, filter 240ms ease;
+        filter: saturate(1.02) contrast(1.05);
       }
+
       figure.card::after{
         content:"";
         position:absolute; inset:0;
-        background: linear-gradient(to top, rgba(0,0,0,.42), rgba(0,0,0,0) 55%);
+        background: linear-gradient(to top, rgba(0,0,0,.52), rgba(0,0,0,0) 58%);
         opacity: 0;
         transition: opacity 240ms ease;
+        z-index:2;
       }
       figcaption.cap{
         position:absolute; left:12px; right:12px; bottom:10px;
-        color: rgba(255,255,255,.92);
+        color: rgba(255,255,255,.94);
         font-size: 12px;
         line-height: 1.35;
         opacity:0;
         transform: translateY(6px);
         transition: opacity 240ms ease, transform 240ms ease;
-        z-index:2;
+        z-index:3;
       }
-      figure.card:hover img{ transform: scale(1.06); }
+      figure.card:hover img{
+        transform: scale(1.06);
+        filter: saturate(1.08) contrast(1.08);
+      }
       figure.card:hover::after{ opacity: 1; }
       figure.card:hover figcaption.cap{
         opacity:1;
@@ -261,31 +335,52 @@
       /* About / Contact */
       .two-col{
         display:grid;
-        grid-template-columns: 1.2fr .8fr;
+        grid-template-columns: 1.15fr .85fr;
         gap: 18px;
         align-items:start;
+        position:relative;
       }
       .panel{
-        border: 1px solid var(--line);
-        background: color-mix(in srgb, #fff 52%, transparent);
+        border: 1px solid rgba(22,26,29,.10);
+        background:
+          radial-gradient(120% 120% at 15% 0%, rgba(191,230,208,.55), transparent 55%),
+          radial-gradient(120% 120% at 100% 70%, rgba(201,119,88,.12), transparent 58%),
+          color-mix(in srgb, #ffffff 62%, transparent);
         border-radius: var(--radius);
         box-shadow: var(--shadow);
-        padding: 22px 20px;
+        padding: 24px 20px;
       }
       .panel h3{
         margin:0 0 10px;
         font-size: 16px;
       }
-      .panel p{ margin: 0 0 12px; color: color-mix(in srgb, var(--text) 90%, var(--muted)); }
+      .panel p{ margin: 0 0 12px; color: color-mix(in srgb, var(--ink) 90%, var(--muted)); }
       .panel p:last-child{ margin-bottom:0; }
       .small{
         font-size: 13px;
         color: var(--muted);
       }
 
+      .pill{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(22,26,29,.10);
+        background: rgba(255,255,255,.45);
+        font-size: 13px;
+        color: color-mix(in srgb, var(--muted) 80%, var(--g1));
+      }
+      .dot{
+        width:10px; height:10px; border-radius:999px;
+        background: linear-gradient(135deg, var(--g1), var(--g2));
+        box-shadow: 0 8px 18px rgba(31,106,74,.22);
+      }
+
       footer{
-        padding: 28px 0 44px;
-        border-top: 1px solid var(--line);
+        padding: 30px 0 46px;
+        border-top: 1px solid color-mix(in srgb, var(--line) 85%, transparent);
         color: var(--muted);
         font-size: 13px;
       }
@@ -294,7 +389,11 @@
         gap: 12px; flex-wrap:wrap;
       }
       .accent{
-        color: var(--accent);
+        background: linear-gradient(135deg, var(--g1), var(--g2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 800;
       }
 
       /* Responsive */
@@ -303,8 +402,8 @@
         .two-col{ grid-template-columns: 1fr; }
       }
       @media (max-width: 680px){
-        header.hero{ padding: 46px 0 22px; }
-        .hero-card{ padding: 26px 18px; }
+        header.hero{ padding: 52px 0 22px; }
+        .hero-card{ padding: 30px 18px; }
         .grid{ grid-template-columns: repeat(2, 1fr); }
         figure.card{ min-height: 190px; }
         .links{ gap: 12px; }
@@ -319,6 +418,7 @@
         figcaption.cap{
           transition:none !important;
         }
+        .btn:hover{ transform:none; }
       }
     </style>
   </head>
@@ -336,9 +436,7 @@
         <div class="links">
           <a href="#work">Έργο</a>
           <a href="#about">Σχετικά</a>
-          <a href="#contact">Επικοινωνία</a>
-          <a href="https://www.instagram.com/_sophoto__?igsh=MTR3emNxM3c0MWJiZw==" target="_blank" rel="noopener">Instagram</a>
-          <a class="btn" href="#contact">Inquiry</a>
+          <a class="btn" href="#contact">Επικοινωνία</a>
         </div>
       </div>
     </nav>
@@ -354,13 +452,10 @@
                 Φωτογραφίζω ανθρώπους όπως τους νιώθω: ήσυχα, κοντά, ειλικρινά.
                 Φιλμ όταν ταιριάζει. Ψηφιακά όταν χρειάζεται.
               </p>
-              <div class="cta-row">
-                <a class="btn" href="#work">Δες επιλεγμένα έργα</a>
-                <a class="btn secondary" href="#contact">Επικοινωνία</a>
+              <div class="divider" aria-hidden="true"></div>
+              <div style="margin-top:14px;">
+                <span class="pill"><span class="dot" aria-hidden="true"></span> Επιλεγμένη δουλειά παρακάτω</span>
               </div>
-              <p class="small" style="margin-top:14px;">
-                Επιλεγμένη δουλειά παρακάτω — το πλήρες portfolio εμπλουτίζεται συνεχώς.
-              </p>
             </div>
           </div>
         </div>
@@ -423,25 +518,25 @@
             </div>
           </div>
 
-          <div class="collection" aria-label="Live music">
-            <h3>Live music</h3>
+          <div class="collection" aria-label="Ζωντανή μουσική">
+            <h3>Ζωντανή μουσική</h3>
             <p class="hint">Φως, ιδρώτας, ήχος — η ανθρώπινη πλευρά της σκηνής.</p>
 
             <div class="grid">
               <figure class="card">
-                <img src="assets/img/ph-09.jpg" alt="Live music — placeholder εικόνα" loading="lazy" />
+                <img src="assets/img/ph-09.jpg" alt="Ζωντανή μουσική — placeholder εικόνα" loading="lazy" />
                 <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
               </figure>
               <figure class="card">
-                <img src="assets/img/ph-10.jpg" alt="Live music — placeholder εικόνα" loading="lazy" />
+                <img src="assets/img/ph-10.jpg" alt="Ζωντανή μουσική — placeholder εικόνα" loading="lazy" />
                 <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
               </figure>
               <figure class="card">
-                <img src="assets/img/ph-11.jpg" alt="Live music — placeholder εικόνα" loading="lazy" />
+                <img src="assets/img/ph-11.jpg" alt="Ζωντανή μουσική — placeholder εικόνα" loading="lazy" />
                 <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
               </figure>
               <figure class="card">
-                <img src="assets/img/ph-12.jpg" alt="Live music — placeholder εικόνα" loading="lazy" />
+                <img src="assets/img/ph-12.jpg" alt="Ζωντανή μουσική — placeholder εικόνα" loading="lazy" />
                 <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
               </figure>
             </div>
@@ -470,21 +565,18 @@
                 Αν σου ταιριάζει αυτός ο ρυθμός, στείλε μου λίγες λεπτομέρειες.
               </p>
               <p class="small">
-                (Το κείμενο και οι συλλογές ενημερώνονται καθώς προστίθεται νέο υλικό.)
+                Το κείμενο και οι συλλογές ενημερώνονται καθώς προστίθεται νέο υλικό.
               </p>
             </div>
 
             <div class="panel">
-              <h3>Για τι μπορώ να βοηθήσω</h3>
+              <h3>Τι μπορώ να αναλάβω</h3>
               <p class="small" style="margin-top:0;">
                 Πορτρέτα • sessions • συνεργασίες • events • projects
               </p>
-              <hr style="border:none;border-top:1px solid var(--line); margin:14px 0;">
+              <hr style="border:none;border-top:1px solid color-mix(in srgb, var(--line) 85%, transparent); margin:14px 0;">
               <p class="small">
-                Προτίμηση σε απλές συνθήκες, καθαρό φως, και ουσία.
-              </p>
-              <p class="small">
-                Για προτάσεις/συνεργασίες, γράψε τι είναι, πού, και πότε.
+                Για προτάσεις/κρατήσεις, γράψε: τι είναι, πού, και πότε.
               </p>
             </div>
           </div>
@@ -501,11 +593,16 @@
           </div>
 
           <div class="panel">
-            <div class="cta-row" style="margin-top:0;">
-              <a class="btn" href="https://www.instagram.com/_sophoto__?igsh=MTR3emNxM3c0MWJiZw==" target="_blank" rel="noopener">
+            <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+              <a
+                class="btn"
+                href="https://www.instagram.com/_sophoto__?igsh=MTR3emNxM3c0MWJiZw=="
+                target="_blank"
+                rel="noopener"
+              >
                 Μήνυμα στο Instagram
               </a>
-              <span class="small" style="align-self:center;">Email: σύντομα διαθέσιμο.</span>
+              <span class="small">Email: σύντομα διαθέσιμο.</span>
             </div>
           </div>
         </div>
@@ -513,10 +610,8 @@
 
       <footer>
         <div class="container foot">
-          <div>© <span class="accent">sophoto</span> — All rights reserved</div>
-          <div>
-            <a href="https://www.instagram.com/_sophoto__?igsh=MTR3emNxM3c0MWJiZw==" target="_blank" rel="noopener">Instagram</a>
-          </div>
+          <div>© <span class="accent">sophoto</span> — Με επιφύλαξη παντός δικαιώματος</div>
+          <div class="small">Φτιαγμένο με απλότητα και χρώμα.</div>
         </div>
       </footer>
     </main>
