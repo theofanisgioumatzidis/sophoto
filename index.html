@@ -1,792 +1,524 @@
 <!doctype html>
 <html lang="el">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="sophoto — μίνιμαλ φωτογραφικό portfolio. Πορτρέτα, φιλμ, κίνηση." />
-  <meta name="theme-color" content="#4f6f55" />
-  <title>sophoto — Πορτρέτα • Φιλμ • Κίνηση</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="sophoto — Πορτρέτα • Φιλμ • Κίνηση. Επιλεγμένη δουλειά, λίγα λόγια, και τρόποι επικοινωνίας." />
+    <title>sophoto</title>
 
-  <style>
-    /* =========================================================
-       sophoto — Botanical Minimal (single-file, static)
-       - No external dependencies
-       - Local placeholders: assets/img/ph-01.jpg ... ph-12.jpg
-       ========================================================= */
+    <style>
+      :root{
+        --bg: #F7F5EF;
+        --bg-2:#F3F1EA;
+        --text:#1A1C1E;
+        --muted:#5D6369;
+        --line: rgba(26,28,30,.12);
+        --card: rgba(255,255,255,.6);
+        --shadow: 0 14px 40px rgba(0,0,0,.08);
+        --accent:#2C654A;         /* muted plant green */
+        --accent-2:#3B7A58;
+        --radius: 22px;
+        --max: 1100px;
+      }
 
-    :root{
-      --bg: #f6f2ea;           /* warm off-white */
-      --text: #121212;         /* near-black */
-      --muted: rgba(18,18,18,.72);
-      --soft: rgba(18,18,18,.10);
-      --accent: #4f6f55;       /* muted plant green */
-      --accent-2: #7f9a84;     /* softer green */
-      --card: rgba(255,255,255,.55);
-      --shadow: 0 18px 45px rgba(0,0,0,.08);
-      --radius: 18px;
-      --radius-sm: 12px;
+      *{ box-sizing:border-box; }
+      html{ scroll-behavior:smooth; }
+      body{
+        margin:0;
+        color:var(--text);
+        background: var(--bg);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+        line-height:1.55;
+      }
 
-      --max: 1120px;
-      --pad: clamp(16px, 2.8vw, 28px);
-      --gap: clamp(14px, 2.2vw, 22px);
+      /* Subtle grain/noise (pure CSS) */
+      body::before{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        z-index:-1;
+        opacity:.10;
+        background-image:
+          radial-gradient(circle at 10% 20%, rgba(0,0,0,.10) 0 1px, transparent 1px 100%),
+          radial-gradient(circle at 80% 30%, rgba(0,0,0,.08) 0 1px, transparent 1px 100%),
+          radial-gradient(circle at 30% 80%, rgba(0,0,0,.07) 0 1px, transparent 1px 100%),
+          radial-gradient(circle at 70% 75%, rgba(0,0,0,.06) 0 1px, transparent 1px 100%);
+        background-size: 220px 220px, 260px 260px, 300px 300px, 340px 340px;
+        mix-blend-mode:multiply;
+        filter: blur(.25px);
+      }
 
-      --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
-    }
+      a{ color:inherit; text-decoration:none; }
+      a:hover{ text-decoration:underline; text-underline-offset: 4px; }
 
-    *{ box-sizing: border-box; }
-    html{ scroll-behavior: smooth; }
-    body{
-      margin: 0;
-      color: var(--text);
-      background: var(--bg);
-      font-family: var(--sans);
-      line-height: 1.45;
-      text-rendering: geometricPrecision;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-    }
+      .skip{
+        position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+      }
+      .skip:focus{
+        left:16px; top:16px; width:auto; height:auto; padding:10px 12px;
+        background:#fff; border:1px solid var(--line); border-radius:12px; z-index:9999;
+      }
 
-    /* Subtle botanical ambience: soft corner tints + grain (pure CSS, no images) */
-    body::before{
-      content: "";
-      position: fixed;
-      inset: -20vmax;
-      z-index: -2;
-      pointer-events: none;
-      background:
-        radial-gradient(60vmax 45vmax at 12% 6%,
-          rgba(79,111,85,.18),
-          rgba(79,111,85,0) 60%),
-        radial-gradient(55vmax 42vmax at 96% 18%,
-          rgba(127,154,132,.14),
-          rgba(127,154,132,0) 55%),
-        radial-gradient(65vmax 55vmax at 30% 98%,
-          rgba(79,111,85,.10),
-          rgba(79,111,85,0) 60%),
-        radial-gradient(80vmax 55vmax at 98% 92%,
-          rgba(18,18,18,.06),
-          rgba(18,18,18,0) 58%);
-      filter: blur(6px);
-      opacity: .9;
-      transform: translateZ(0);
-    }
-    body::after{
-      /* CSS grain: layered gradients at tiny scales */
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: .09;
-      mix-blend-mode: multiply;
-      background:
-        repeating-linear-gradient(0deg,
-          rgba(0,0,0,.05) 0px,
-          rgba(0,0,0,.05) 1px,
-          rgba(0,0,0,0) 2px,
-          rgba(0,0,0,0) 4px),
-        repeating-linear-gradient(90deg,
-          rgba(0,0,0,.035) 0px,
-          rgba(0,0,0,.035) 1px,
-          rgba(0,0,0,0) 2px,
-          rgba(0,0,0,0) 5px),
-        radial-gradient(circle at 30% 20%,
-          rgba(0,0,0,.05),
-          rgba(0,0,0,0) 55%),
-        radial-gradient(circle at 70% 80%,
-          rgba(0,0,0,.04),
-          rgba(0,0,0,0) 50%);
-      background-size: 220px 220px, 260px 260px, 100% 100%, 100% 100%;
-      transform: translateZ(0);
-    }
+      .container{ width:min(var(--max), calc(100% - 48px)); margin:0 auto; }
 
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ color: var(--text); }
-    a:focus-visible, button:focus-visible{
-      outline: 3px solid rgba(79,111,85,.45);
-      outline-offset: 3px;
-      border-radius: 10px;
-    }
+      /* Top nav */
+      .nav{
+        position:sticky; top:0; z-index:50;
+        backdrop-filter: blur(10px);
+        background: color-mix(in srgb, var(--bg) 78%, transparent);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav-inner{
+        display:flex; align-items:center; justify-content:space-between;
+        padding: 14px 0;
+        gap:16px;
+      }
+      .brand{
+        display:flex; align-items:baseline; gap:10px;
+        letter-spacing:.2px;
+      }
+      .brand strong{
+        font-weight:650;
+        font-size: 16px;
+      }
+      .brand span{
+        color:var(--muted);
+        font-size: 13px;
+      }
+      .links{
+        display:flex; align-items:center; gap:18px;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+      }
+      .links a{
+        color:var(--muted);
+        font-size:14px;
+      }
+      .links a:focus-visible,
+      .btn:focus-visible{
+        outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent);
+        outline-offset: 3px;
+        border-radius: 14px;
+      }
+      .btn{
+        display:inline-flex; align-items:center; justify-content:center;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+        background: color-mix(in srgb, var(--accent) 10%, #fff);
+        color: color-mix(in srgb, var(--accent) 80%, var(--text));
+        font-weight:600;
+        font-size:14px;
+        text-decoration:none;
+        box-shadow: 0 10px 26px rgba(44,101,74,.10);
+      }
+      .btn:hover{ text-decoration:none; background: color-mix(in srgb, var(--accent) 14%, #fff); }
+      .btn.secondary{
+        background: transparent;
+        color: var(--accent);
+        box-shadow:none;
+      }
+      .btn.secondary:hover{ background: color-mix(in srgb, var(--accent) 8%, #fff); }
 
-    .skip{
-      position: absolute;
-      left: 12px;
-      top: 12px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.9);
-      border: 1px solid var(--soft);
-      transform: translateY(-130%);
-      transition: transform .18s ease;
-      z-index: 1000;
-    }
-    .skip:focus{ transform: translateY(0); }
+      /* Hero */
+      header.hero{
+        padding: 64px 0 28px;
+      }
+      .hero-card{
+        border:1px solid var(--line);
+        background: color-mix(in srgb, #fff 50%, transparent);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 34px 28px;
+        position:relative;
+        overflow:hidden;
+      }
+      /* faint botanical wash */
+      .hero-card::after{
+        content:"";
+        position:absolute; inset:-40px;
+        background:
+          radial-gradient(800px 500px at 12% 10%, rgba(44,101,74,.10), transparent 60%),
+          radial-gradient(700px 450px at 85% 25%, rgba(44,101,74,.08), transparent 60%),
+          radial-gradient(900px 650px at 55% 110%, rgba(44,101,74,.06), transparent 60%);
+        filter: blur(2px);
+        z-index:0;
+      }
+      .hero-content{ position:relative; z-index:1; }
 
-    .wrap{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 var(--pad);
-    }
+      h1{
+        margin:0 0 10px;
+        font-size: clamp(34px, 5vw, 54px);
+        letter-spacing: .4px;
+      }
+      .subline{
+        color:var(--muted);
+        font-size: 15px;
+        margin: 0 0 18px;
+      }
+      .lede{
+        max-width: 62ch;
+        margin: 0 0 22px;
+        font-size: 16px;
+        color: color-mix(in srgb, var(--text) 90%, var(--muted));
+      }
+      .cta-row{
+        display:flex; gap:12px; flex-wrap:wrap;
+        margin-top: 8px;
+      }
 
-    /* -----------------------------
-       Sticky minimal nav
-       ----------------------------- */
-    header{
-      position: sticky;
-      top: 0;
-      z-index: 900;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      background: rgba(246,242,234,.78);
-      border-bottom: 1px solid rgba(18,18,18,.08);
-    }
-    .nav{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 14px 0;
-    }
-    .brand{
-      display: inline-flex;
-      align-items: baseline;
-      gap: 10px;
-      min-width: 120px;
-    }
-    .brand strong{
-      font-family: var(--serif);
-      font-weight: 700;
-      letter-spacing: .02em;
-      font-size: 18px;
-    }
-    .brand .dot{
-      width: 7px;
-      height: 7px;
-      border-radius: 99px;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(79,111,85,.12);
-      translate: 0 -1px;
-    }
-    nav ul{
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      gap: clamp(10px, 2.2vw, 18px);
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    nav a{
-      font-size: 14px;
-      color: var(--muted);
-      padding: 8px 10px;
-      border-radius: 999px;
-      transition: background .18s ease, color .18s ease;
-    }
-    nav a:hover{
-      background: rgba(79,111,85,.10);
-      color: var(--text);
-    }
-    nav a[aria-current="page"]{
-      background: rgba(79,111,85,.12);
-      color: var(--text);
-    }
+      /* Sections */
+      section{
+        padding: 48px 0;
+      }
+      .section-head{
+        display:flex; align-items:end; justify-content:space-between; gap:16px;
+        margin-bottom: 18px;
+      }
+      .section-head h2{
+        margin:0;
+        font-size: 20px;
+        letter-spacing:.2px;
+      }
+      .section-head p{
+        margin:0;
+        color:var(--muted);
+        font-size: 14px;
+        max-width: 60ch;
+      }
 
-    /* -----------------------------
-       Hero
-       ----------------------------- */
-    main{ padding-bottom: 56px; }
+      /* Work blocks */
+      .collection{
+        margin-top: 28px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+      }
+      .collection:first-of-type{
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+      }
+      .collection h3{
+        margin:0 0 6px;
+        font-size: 16px;
+        font-weight: 650;
+      }
+      .collection .hint{
+        margin:0 0 14px;
+        color: var(--muted);
+        font-size: 14px;
+      }
 
-    .hero{
-      padding: clamp(34px, 7vw, 76px) 0 clamp(26px, 4vw, 44px);
-    }
-    .hero-grid{
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: clamp(18px, 4vw, 44px);
-      align-items: end;
-    }
-    .kicker{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--muted);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .kicker::before{
-      content: "";
-      width: 36px;
-      height: 1px;
-      background: rgba(79,111,85,.55);
-    }
-    h1{
-      margin: 0;
-      font-family: var(--serif);
-      font-weight: 750;
-      letter-spacing: .01em;
-      font-size: clamp(44px, 7vw, 82px);
-      line-height: 1.02;
-    }
-    .subline{
-      margin: 14px 0 0;
-      font-size: clamp(16px, 2.2vw, 18px);
-      color: var(--muted);
-    }
-    .hero p{
-      margin: 16px 0 0;
-      max-width: 60ch;
-      color: var(--muted);
-      font-size: 15px;
-    }
+      .grid{
+        display:grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
 
-    .cta-row{
-      margin-top: 22px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(79,111,85,.35);
-      background: rgba(79,111,85,.12);
-      color: var(--text);
-      font-weight: 600;
-      font-size: 14px;
-      transition: transform .16s ease, background .16s ease, border-color .16s ease;
-      box-shadow: 0 10px 26px rgba(0,0,0,.06);
-    }
-    .btn:hover{
-      background: rgba(79,111,85,.16);
-      border-color: rgba(79,111,85,.45);
-      transform: translateY(-1px);
-    }
-    .btn.secondary{
-      background: rgba(255,255,255,.45);
-      border-color: rgba(18,18,18,.14);
-      font-weight: 520;
-      color: var(--muted);
-      box-shadow: none;
-    }
-    .btn.secondary:hover{
-      background: rgba(255,255,255,.65);
-      color: var(--text);
-      transform: translateY(-1px);
-    }
+      figure.card{
+        margin:0;
+        border-radius: 18px;
+        overflow:hidden;
+        position:relative;
+        border: 1px solid rgba(0,0,0,.06);
+        background: var(--bg-2);
+        min-height: 220px;
+      }
+      figure.card img{
+        width:100%;
+        height: 100%;
+        display:block;
+        object-fit: cover;
+        transform: scale(1.02);
+        transition: transform 240ms ease;
+        filter: saturate(.95) contrast(1.02);
+      }
+      figure.card::after{
+        content:"";
+        position:absolute; inset:0;
+        background: linear-gradient(to top, rgba(0,0,0,.42), rgba(0,0,0,0) 55%);
+        opacity: 0;
+        transition: opacity 240ms ease;
+      }
+      figcaption.cap{
+        position:absolute; left:12px; right:12px; bottom:10px;
+        color: rgba(255,255,255,.92);
+        font-size: 12px;
+        line-height: 1.35;
+        opacity:0;
+        transform: translateY(6px);
+        transition: opacity 240ms ease, transform 240ms ease;
+        z-index:2;
+      }
+      figure.card:hover img{ transform: scale(1.06); }
+      figure.card:hover::after{ opacity: 1; }
+      figure.card:hover figcaption.cap{
+        opacity:1;
+        transform: translateY(0);
+      }
 
-    .hero-card{
-      border-radius: var(--radius);
-      border: 1px solid rgba(18,18,18,.10);
-      background: rgba(255,255,255,.45);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-      min-height: 200px;
-      padding: 18px;
-    }
-    .hero-card::before{
-      /* Minimal botanical “leaf” abstraction using gradients */
-      content: "";
-      position: absolute;
-      inset: -40px -40px auto auto;
-      width: 220px;
-      height: 220px;
-      background:
-        radial-gradient(closest-side at 35% 30%, rgba(79,111,85,.25), rgba(79,111,85,0) 70%),
-        radial-gradient(closest-side at 70% 60%, rgba(127,154,132,.22), rgba(127,154,132,0) 68%),
-        radial-gradient(closest-side at 40% 70%, rgba(18,18,18,.10), rgba(18,18,18,0) 75%);
-      border-radius: 999px;
-      filter: blur(1px);
-      transform: rotate(14deg);
-      opacity: .9;
-      pointer-events: none;
-    }
-    .hero-card h2{
-      margin: 0 0 8px;
-      font-size: 15px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: rgba(18,18,18,.75);
-    }
-    .hero-card ul{
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
-      gap: 10px;
-    }
-    .hero-card li{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: rgba(18,18,18,.78);
-      font-size: 14px;
-    }
-    .leaf{
-      width: 10px;
-      height: 10px;
-      border-radius: 999px 999px 999px 0;
-      background: rgba(79,111,85,.55);
-      transform: rotate(-35deg);
-      box-shadow: 0 0 0 6px rgba(79,111,85,.10);
-      flex: 0 0 auto;
-    }
+      /* About / Contact */
+      .two-col{
+        display:grid;
+        grid-template-columns: 1.2fr .8fr;
+        gap: 18px;
+        align-items:start;
+      }
+      .panel{
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, #fff 52%, transparent);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 22px 20px;
+      }
+      .panel h3{
+        margin:0 0 10px;
+        font-size: 16px;
+      }
+      .panel p{ margin: 0 0 12px; color: color-mix(in srgb, var(--text) 90%, var(--muted)); }
+      .panel p:last-child{ margin-bottom:0; }
+      .small{
+        font-size: 13px;
+        color: var(--muted);
+      }
 
-    /* -----------------------------
-       Sections
-       ----------------------------- */
-    section{
-      padding: clamp(30px, 6vw, 60px) 0;
-    }
-    .section-head{
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-    .section-head h2{
-      margin: 0;
-      font-family: var(--serif);
-      font-weight: 700;
-      font-size: clamp(22px, 3vw, 28px);
-      letter-spacing: .01em;
-    }
-    .section-head p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      max-width: 50ch;
-    }
-    .divider{
-      height: 1px;
-      background: rgba(18,18,18,.09);
-      margin: 12px 0 0;
-    }
+      footer{
+        padding: 28px 0 44px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .foot{
+        display:flex; justify-content:space-between; align-items:center;
+        gap: 12px; flex-wrap:wrap;
+      }
+      .accent{
+        color: var(--accent);
+      }
 
-    /* -----------------------------
-       Work: categories + grids
-       ----------------------------- */
-    .category{
-      margin-top: clamp(18px, 4.2vw, 36px);
-      padding: clamp(14px, 2.6vw, 18px);
-      border-radius: var(--radius);
-      border: 1px solid rgba(18,18,18,.10);
-      background: rgba(255,255,255,.35);
-      box-shadow: 0 14px 36px rgba(0,0,0,.06);
-    }
-    .category-header{
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-    .category-header h3{
-      margin: 0;
-      font-size: 16px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: rgba(18,18,18,.78);
-    }
-    .category-header span{
-      font-size: 13px;
-      color: rgba(18,18,18,.62);
-    }
+      /* Responsive */
+      @media (max-width: 980px){
+        .grid{ grid-template-columns: repeat(3, 1fr); }
+        .two-col{ grid-template-columns: 1fr; }
+      }
+      @media (max-width: 680px){
+        header.hero{ padding: 46px 0 22px; }
+        .hero-card{ padding: 26px 18px; }
+        .grid{ grid-template-columns: repeat(2, 1fr); }
+        figure.card{ min-height: 190px; }
+        .links{ gap: 12px; }
+        .brand span{ display:none; }
+      }
 
-    .grid{
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--gap);
-    }
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce){
+        html{ scroll-behavior:auto; }
+        figure.card img,
+        figure.card::after,
+        figcaption.cap{
+          transition:none !important;
+        }
+      }
+    </style>
+  </head>
 
-    .tile{
-      position: relative;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      border: 1px solid rgba(18,18,18,.10);
-      background: rgba(255,255,255,.5);
-      isolation: isolate;
-    }
+  <body>
+    <a class="skip" href="#work">Μετάβαση στο έργο</a>
 
-    .tile a{
-      display: block;
-      position: relative;
-      height: 100%;
-      color: inherit;
-    }
-
-    .tile img{
-      width: 100%;
-      height: 100%;
-      display: block;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      transform: scale(1.001);
-      transition: transform .35s ease;
-      filter: saturate(.98) contrast(1.02);
-    }
-
-    .tile figcaption{
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
-      padding: 12px 12px 10px;
-      background: linear-gradient(to top, rgba(18,18,18,.70), rgba(18,18,18,0) 65%);
-      color: rgba(255,255,255,.92);
-      font-size: 13px;
-      letter-spacing: .02em;
-      opacity: 0;
-      transition: opacity .25s ease;
-    }
-
-    .tile:hover img,
-    .tile:focus-within img{
-      transform: scale(1.045);
-    }
-    .tile:hover figcaption,
-    .tile:focus-within figcaption{
-      opacity: 1;
-    }
-
-    /* -----------------------------
-       About + Contact
-       ----------------------------- */
-    .prose{
-      max-width: 72ch;
-      color: var(--muted);
-      font-size: 15px;
-    }
-    .prose p{
-      margin: 0 0 10px;
-    }
-
-    .contact-box{
-      margin-top: 14px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(18,18,18,.10);
-      background: rgba(255,255,255,.40);
-      padding: clamp(16px, 3vw, 22px);
-      box-shadow: 0 16px 40px rgba(0,0,0,.06);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .contact-box .small{
-      color: rgba(18,18,18,.68);
-      font-size: 14px;
-    }
-
-    /* -----------------------------
-       Footer
-       ----------------------------- */
-    footer{
-      padding: 26px 0 36px;
-      border-top: 1px solid rgba(18,18,18,.08);
-      color: rgba(18,18,18,.62);
-      font-size: 13px;
-    }
-    .footer-row{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .footer-row a{
-      color: rgba(79,111,85,.92);
-      padding: 6px 10px;
-      border-radius: 999px;
-    }
-    .footer-row a:hover{
-      background: rgba(79,111,85,.10);
-      color: var(--text);
-    }
-
-    /* -----------------------------
-       Responsive
-       ----------------------------- */
-    @media (max-width: 980px){
-      .hero-grid{ grid-template-columns: 1fr; }
-      .hero-card{ min-height: unset; }
-      .grid{ grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 520px){
-      nav ul{ gap: 8px; }
-      nav a{ padding: 8px 8px; }
-      .grid{ grid-template-columns: 1fr; }
-      .category{ padding: 14px; }
-      .tile img{ aspect-ratio: 3 / 4; }
-    }
-
-    /* -----------------------------
-       Reduced motion support
-       ----------------------------- */
-    @media (prefers-reduced-motion: reduce){
-      html{ scroll-behavior: auto; }
-      *{ transition: none !important; animation: none !important; }
-      .btn:hover{ transform: none; }
-      .tile:hover img{ transform: none; }
-    }
-  </style>
-</head>
-
-<body>
-  <a class="skip" href="#work">Παράκαμψη στην ενότητα Έργα</a>
-
-  <header>
-    <div class="wrap">
-      <div class="nav" role="navigation" aria-label="Κύρια πλοήγηση">
-        <a class="brand" href="#top" aria-label="sophoto — αρχή σελίδας">
-          <span class="dot" aria-hidden="true"></span>
+    <nav class="nav" aria-label="Κύρια πλοήγηση">
+      <div class="container nav-inner">
+        <a class="brand" href="#top" aria-label="Αρχική">
           <strong>sophoto</strong>
+          <span>πορτρέτα · φιλμ · κίνηση</span>
         </a>
 
-        <nav aria-label="Μενού">
-          <ul>
-            <li><a href="#work">Έργα</a></li>
-            <li><a href="#about">Σχετικά</a></li>
-            <li><a href="#contact">Επικοινωνία</a></li>
-            <li><a href="https://instagram.com/_sophoto_" target="_blank" rel="noopener">Instagram</a></li>
-          </ul>
-        </nav>
+        <div class="links">
+          <a href="#work">Έργο</a>
+          <a href="#about">Σχετικά</a>
+          <a href="#contact">Επικοινωνία</a>
+          <a href="https://www.instagram.com/_sophoto__?igsh=MTR3emNxM3c0MWJiZw==" target="_blank" rel="noopener">Instagram</a>
+          <a class="btn" href="#contact">Inquiry</a>
+        </div>
       </div>
-    </div>
-  </header>
+    </nav>
 
-  <main id="top">
-    <div class="wrap">
-      <!-- HERO -->
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-grid">
-          <div>
-            <div class="kicker">Μίνιμαλ φωτογραφία</div>
-            <h1 id="hero-title">sophoto</h1>
-            <div class="subline">Πορτρέτα • Φιλμ • Κίνηση</div>
-            <p>Ένα μίνιμαλ portfolio — η πλήρης γκαλερί έρχεται σύντομα.</p>
+    <main id="top">
+      <header class="hero">
+        <div class="container">
+          <div class="hero-card">
+            <div class="hero-content">
+              <h1>sophoto</h1>
+              <p class="subline">Πορτρέτα • Φιλμ • Κίνηση</p>
+              <p class="lede">
+                Φωτογραφίζω ανθρώπους όπως τους νιώθω: ήσυχα, κοντά, ειλικρινά.
+                Φιλμ όταν ταιριάζει. Ψηφιακά όταν χρειάζεται.
+              </p>
+              <div class="cta-row">
+                <a class="btn" href="#work">Δες επιλεγμένα έργα</a>
+                <a class="btn secondary" href="#contact">Επικοινωνία</a>
+              </div>
+              <p class="small" style="margin-top:14px;">
+                Επιλεγμένη δουλειά παρακάτω — το πλήρες portfolio εμπλουτίζεται συνεχώς.
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
 
-            <div class="cta-row">
-              <a class="btn" href="#work" aria-label="Κύλιση στην ενότητα Έργα">Δες επιλεγμένα έργα</a>
-              <a class="btn secondary" href="https://instagram.com/_sophoto_" target="_blank" rel="noopener">
-                Instagram
-              </a>
+      <section id="work" aria-label="Έργο">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Έργο</h2>
+              <p>Μικρές συλλογές — καθαρές, ήρεμες, με χώρο να αναπνεύσουν.</p>
             </div>
           </div>
 
-          <aside class="hero-card" aria-label="Σύντομη περίληψη">
-            <h2>Επιλογή</h2>
-            <ul>
-              <li><span class="leaf" aria-hidden="true"></span><span>Μικρή συλλογή από πρόσφατα δείγματα.</span></li>
-              <li><span class="leaf" aria-hidden="true"></span><span>Θέματα: πορτρέτα, κίνηση, live σκηνές.</span></li>
-              <li><span class="leaf" aria-hidden="true"></span><span>Οι φωτογραφίες εδώ είναι προσωρινές και θα αντικατασταθούν.</span></li>
-            </ul>
-          </aside>
+          <div class="collection" aria-label="Πορτρέτα">
+            <h3>Πορτρέτα</h3>
+            <p class="hint">Πρόσωπα, υφή, και μια ήσυχη αυτοπεποίθηση.</p>
+
+            <div class="grid">
+              <figure class="card">
+                <img src="assets/img/ph-01.jpg" alt="Πορτρέτο — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+              <figure class="card">
+                <img src="assets/img/ph-02.jpg" alt="Πορτρέτο — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+              <figure class="card">
+                <img src="assets/img/ph-03.jpg" alt="Πορτρέτο — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+              <figure class="card">
+                <img src="assets/img/ph-04.jpg" alt="Πορτρέτο — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="collection" aria-label="Κίνηση">
+            <h3>Κίνηση (Lindy Hop)</h3>
+            <p class="hint">Ρυθμός, σύνδεση, και το κλάσμα του δευτερολέπτου ανάμεσα στα βήματα.</p>
+
+            <div class="grid">
+              <figure class="card">
+                <img src="assets/img/ph-05.jpg" alt="Κίνηση — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+              <figure class="card">
+                <img src="assets/img/ph-06.jpg" alt="Κίνηση — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+              <figure class="card">
+                <img src="assets/img/ph-07.jpg" alt="Κίνηση — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+              <figure class="card">
+                <img src="assets/img/ph-08.jpg" alt="Κίνηση — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="collection" aria-label="Live music">
+            <h3>Live music</h3>
+            <p class="hint">Φως, ιδρώτας, ήχος — η ανθρώπινη πλευρά της σκηνής.</p>
+
+            <div class="grid">
+              <figure class="card">
+                <img src="assets/img/ph-09.jpg" alt="Live music — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+              <figure class="card">
+                <img src="assets/img/ph-10.jpg" alt="Live music — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+              <figure class="card">
+                <img src="assets/img/ph-11.jpg" alt="Live music — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+              <figure class="card">
+                <img src="assets/img/ph-12.jpg" alt="Live music — placeholder εικόνα" loading="lazy" />
+                <figcaption class="cap">Placeholder — θα αντικατασταθεί</figcaption>
+              </figure>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- WORK -->
-      <section id="work" aria-labelledby="work-title">
-        <div class="section-head">
-          <h2 id="work-title">Έργα</h2>
-          <p>Επιλεγμένα δείγματα (placeholders) — θα αντικατασταθούν με την τελική γκαλερί.</p>
-        </div>
-        <div class="divider" aria-hidden="true"></div>
+      <section id="about" aria-label="Σχετικά">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Σχετικά</h2>
+              <p>Λίγα λόγια — χωρίς υπερβολές.</p>
+            </div>
+          </div>
 
-        <!-- Portraits -->
-        <article class="category" aria-labelledby="cat-portraits">
-          <header class="category-header">
-            <h3 id="cat-portraits">Πορτρέτα</h3>
-            <span>4 εικόνες</span>
-          </header>
+          <div class="two-col">
+            <div class="panel">
+              <h3>Η προσέγγιση</h3>
+              <p>
+                Με ενδιαφέρει η παρουσία — αυτό που δεν “στήνεται” εύκολα.
+                Πορτρέτα, κίνηση, και ζωντανές στιγμές, με ήρεμη και φυσική ματιά.
+              </p>
+              <p>
+                Κινούμαι ανάμεσα σε φιλμ και ψηφιακό, ανάλογα με την ιστορία και το φως.
+                Αν σου ταιριάζει αυτός ο ρυθμός, στείλε μου λίγες λεπτομέρειες.
+              </p>
+              <p class="small">
+                (Το κείμενο και οι συλλογές ενημερώνονται καθώς προστίθεται νέο υλικό.)
+              </p>
+            </div>
 
-          <ul class="grid" aria-label="Πλέγμα εικόνων: Πορτρέτα">
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-01.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 1 (Πορτρέτα)">
-                  <img src="assets/img/ph-01.jpg" alt="Placeholder φωτογραφία πορτρέτου 1" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-02.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 2 (Πορτρέτα)">
-                  <img src="assets/img/ph-02.jpg" alt="Placeholder φωτογραφία πορτρέτου 2" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-03.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 3 (Πορτρέτα)">
-                  <img src="assets/img/ph-03.jpg" alt="Placeholder φωτογραφία πορτρέτου 3" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-04.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 4 (Πορτρέτα)">
-                  <img src="assets/img/ph-04.jpg" alt="Placeholder φωτογραφία πορτρέτου 4" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-          </ul>
-        </article>
-
-        <!-- Movement -->
-        <article class="category" aria-labelledby="cat-movement">
-          <header class="category-header">
-            <h3 id="cat-movement">Κίνηση (Lindy Hop)</h3>
-            <span>4 εικόνες</span>
-          </header>
-
-          <ul class="grid" aria-label="Πλέγμα εικόνων: Κίνηση (Lindy Hop)">
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-05.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 5 (Κίνηση)">
-                  <img src="assets/img/ph-05.jpg" alt="Placeholder φωτογραφία κίνησης 1" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-06.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 6 (Κίνηση)">
-                  <img src="assets/img/ph-06.jpg" alt="Placeholder φωτογραφία κίνησης 2" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-07.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 7 (Κίνηση)">
-                  <img src="assets/img/ph-07.jpg" alt="Placeholder φωτογραφία κίνησης 3" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-08.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 8 (Κίνηση)">
-                  <img src="assets/img/ph-08.jpg" alt="Placeholder φωτογραφία κίνησης 4" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-          </ul>
-        </article>
-
-        <!-- Live music -->
-        <article class="category" aria-labelledby="cat-live">
-          <header class="category-header">
-            <h3 id="cat-live">Ζωντανή μουσική</h3>
-            <span>4 εικόνες</span>
-          </header>
-
-          <ul class="grid" aria-label="Πλέγμα εικόνων: Ζωντανή μουσική">
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-09.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 9 (Ζωντανή μουσική)">
-                  <img src="assets/img/ph-09.jpg" alt="Placeholder φωτογραφία ζωντανής μουσικής 1" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-10.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 10 (Ζωντανή μουσική)">
-                  <img src="assets/img/ph-10.jpg" alt="Placeholder φωτογραφία ζωντανής μουσικής 2" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-11.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 11 (Ζωντανή μουσική)">
-                  <img src="assets/img/ph-11.jpg" alt="Placeholder φωτογραφία ζωντανής μουσικής 3" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-            <li class="tile">
-              <figure>
-                <a href="assets/img/ph-12.jpg" target="_blank" rel="noopener" aria-label="Άνοιγμα εικόνας 12 (Ζωντανή μουσική)">
-                  <img src="assets/img/ph-12.jpg" alt="Placeholder φωτογραφία ζωντανής μουσικής 4" loading="lazy" />
-                  <figcaption>Δείγμα — θα αντικατασταθεί</figcaption>
-                </a>
-              </figure>
-            </li>
-          </ul>
-        </article>
-      </section>
-
-      <!-- ABOUT -->
-      <section id="about" aria-labelledby="about-title">
-        <div class="section-head">
-          <h2 id="about-title">Σχετικά</h2>
-          <p>Λιτό, χωρίς βιογραφικές λεπτομέρειες — για τώρα.</p>
-        </div>
-        <div class="divider" aria-hidden="true"></div>
-
-        <div class="prose">
-          <p>Μίνιμαλ προσέγγιση στη φωτογραφία, με έμφαση στο φως, την υφή και την κίνηση.</p>
-          <p>Το υλικό θα περιλαμβάνει επιλογές από πορτρέτα, στιγμές κίνησης και live σκηνές.</p>
-          <p>Χρήση φιλμ και DSLR (ανάλογα με το project).</p>
-          <p>Η πλήρης παρουσίαση και η τελική επιμέλεια της γκαλερί θα προστεθούν σύντομα.</p>
+            <div class="panel">
+              <h3>Για τι μπορώ να βοηθήσω</h3>
+              <p class="small" style="margin-top:0;">
+                Πορτρέτα • sessions • συνεργασίες • events • projects
+              </p>
+              <hr style="border:none;border-top:1px solid var(--line); margin:14px 0;">
+              <p class="small">
+                Προτίμηση σε απλές συνθήκες, καθαρό φως, και ουσία.
+              </p>
+              <p class="small">
+                Για προτάσεις/συνεργασίες, γράψε τι είναι, πού, και πότε.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- CONTACT -->
-      <section id="contact" aria-labelledby="contact-title">
-        <div class="section-head">
-          <h2 id="contact-title">Επικοινωνία</h2>
-          <p>Για τώρα, ο πιο άμεσος τρόπος είναι το Instagram.</p>
-        </div>
-        <div class="divider" aria-hidden="true"></div>
+      <section id="contact" aria-label="Επικοινωνία">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Επικοινωνία</h2>
+              <p>Για κρατήσεις, συνεργασίες ή ερωτήσεις — στείλε μήνυμα με λίγες βασικές λεπτομέρειες.</p>
+            </div>
+          </div>
 
-        <div class="contact-box" role="group" aria-label="Ενέργειες επικοινωνίας">
-          <a class="btn" href="https://instagram.com/_sophoto_" target="_blank" rel="noopener">
-            Άνοιγμα Instagram
-          </a>
-          <div class="small">Email σύντομα.</div>
+          <div class="panel">
+            <div class="cta-row" style="margin-top:0;">
+              <a class="btn" href="https://www.instagram.com/_sophoto__?igsh=MTR3emNxM3c0MWJiZw==" target="_blank" rel="noopener">
+                Μήνυμα στο Instagram
+              </a>
+              <span class="small" style="align-self:center;">Email: σύντομα διαθέσιμο.</span>
+            </div>
+          </div>
         </div>
       </section>
-    </div>
-  </main>
 
-  <footer>
-    <div class="wrap">
-      <div class="footer-row">
-        <div>© <span id="y">2026</span> sophoto — Όλα τα δικαιώματα διατηρούνται.</div>
-        <div>
-          <a href="#top" aria-label="Επιστροφή στην κορυφή">Πάνω</a>
+      <footer>
+        <div class="container foot">
+          <div>© <span class="accent">sophoto</span> — All rights reserved</div>
+          <div>
+            <a href="https://www.instagram.com/_sophoto__?igsh=MTR3emNxM3c0MWJiZw==" target="_blank" rel="noopener">Instagram</a>
+          </div>
         </div>
-      </div>
-    </div>
-    <script>
-      // Tiny enhancement: keep copyright year current.
-      document.getElementById('y').textContent = String(new Date().getFullYear());
-    </script>
-  </footer>
-</body>
+      </footer>
+    </main>
+  </body>
 </html>
